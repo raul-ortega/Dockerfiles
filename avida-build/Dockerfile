@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:20.04 as avida-builder
 ARG DEBIAN_FRONTEND=noninteractive
 WORKDIR /github.com/fortunalab/
 RUN apt-get update \
@@ -11,3 +11,8 @@ RUN apt-get update \
       && git clone https://github.com/fortunalab/avida.git
 WORKDIR /github.com/fortunalab/avida
 RUN git submodule update --init --recursive
+RUN ./build_avida
+
+FROM ubuntu:20.04
+WORKDIR /avida/
+COPY --from=avida-builder /github.com/fortunalab/avida/cbuild/work/ .
