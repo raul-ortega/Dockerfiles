@@ -11,4 +11,3 @@ RUN apt-get update \
       && git clone https://github.com/fortunalab/avida.git
 WORKDIR /github.com/fortunalab/avida
 RUN git submodule update --init --recursive
-RUN ./build_avida
